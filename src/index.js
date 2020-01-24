@@ -13,7 +13,7 @@ const { database } = require('./keys');
 
 // Intializations
 const app = express();
-// require('./lib/passport');
+require('./lib/passport');
 
 // Settings
 // app.set('port', process.env.PORT || 4000);
@@ -39,13 +39,13 @@ app.use(session({
     store: new MySQLStore(database)
 }));
 app.use(flash());
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 // app.use(validator());
 
 // Global variables
 app.use((req, res, next) => {
-    // app.locals.message = req.flash('message');
+    app.locals.message = req.flash('message');
     app.locals.success = req.flash('success');
     //     app.locals.user = req.user;
     next();
